@@ -1,34 +1,48 @@
+import { FiLoader } from "react-icons/fi";
+
 export default function ClientsTable({ clientes, loading }) {
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '20px', color: 'var(--color-accent-blue)' }}>
+        <FiLoader size={24} style={{ animation: 'spin 2s linear infinite' }} />
+        <p style={{ marginTop: '10px' }}>Carregando dados dos clientes...</p>
+        <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
+
+  if (clientes.length === 0) {
+    return (
+      <div style={{ textAlign: 'center', padding: '20px', color: 'var(--color-text-muted)' }}>
+        <p>Nenhum cliente cadastrado ainda.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white/5 border border-white/10 rounded-2xl p-6 overflow-x-auto">
-      <h3 className="text-lg font-semibold text-white mb-4">Lista de clientes</h3>
-      {loading ? (
-        <p className="text-white/60">Carregando...</p>
-      ) : (
-        <table className="w-full text-sm border-separate border-spacing-y-2">
-          <thead>
-            <tr className="text-white/70">
-              <th className="text-left px-3">Nome</th>
-              <th className="text-left px-3">CPF</th>
-              <th className="text-left px-3">Email</th>
-              <th className="text-left px-3">ID</th>
+    <div className="clients-table-container">
+      <table className="clients-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {clientes.map((cliente, index) => (
+            <tr key={cliente.id || index}>
+              <td data-label="ID">
+                <span className="client-id-badge">#{cliente.id}</span>
+              </td>
+              <td data-label="Nome">{cliente.nome}</td>
+              <td data-label="CPF">{cliente.cpf}</td>
+              <td data-label="Email">{cliente.email}</td>
             </tr>
-          </thead>
-          <tbody>
-            {clientes.map((c) => (
-              <tr
-                key={c.id}
-                className="bg-[#0E1425] hover:bg-[#151C31] transition rounded-xl"
-              >
-                <td className="px-3 py-2">{c.nome}</td>
-                <td className="px-3 py-2">{c.cpf}</td>
-                <td className="px-3 py-2">{c.email}</td>
-                <td className="px-3 py-2 text-white/50">{c.id}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

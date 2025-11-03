@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="text-center text-xs text-white/40 py-8">
-      © 2025 FinFlow — Sistema Interno v2.0 - Developed By Danilo Lima 
+    <footer className="footer">
+      © {new Date().getFullYear()} FinFlow Bank UI. Sistema Interno V3.0 - Desenvolvido por Danilo Lima.
     </footer>
   );
 }
