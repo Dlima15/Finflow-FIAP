@@ -16,5 +16,12 @@ export default function DashboardHeader() {
         Servidor Online • {hoje}
       </p>
     </header>
+
+    
   );
+
+  <h1 className="text-3xl font-bold text-[#00FF88] mb-8">
+  💳 FinFlow Dashboard
+  </h1>
+
 }

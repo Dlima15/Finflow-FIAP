@@ -1,7 +1,20 @@
 package com.finflow.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "CLIENTE")
@@ -26,4 +39,9 @@ public class Cliente {
 
     @Column(name = "SENHA")
     private String senha;
+
+    // 🔹 Relacionamento com Conta (um cliente pode ter várias contas)
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    @JsonIgnore // ✅ evita loop e corrige erro ByteBuddyInterceptor
+    private List<Conta> contas;
 }
